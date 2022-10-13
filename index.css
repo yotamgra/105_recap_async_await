@@ -52,29 +52,11 @@ nav {
   grid-area: main;
   overflow: scroll;
   min-height: 100%;
-}
-
-#posts {
-  padding: 20px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
   justify-content: center;
-}
-
-.comment-container {
-  font-size: 80%;
-}
-
-.comment {
-  margin-bottom: 16px;
-  color: #959595;
-  border-bottom: 1px solid #333;
-}
-
-.comment-container p {
-  margin: 0;
-  margin-bottom: 4px;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 20px;
 }
 
 .card {
@@ -82,14 +64,15 @@ nav {
 }
 
 .card img {
-  max-width: 100%;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
 .card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  background-color: #fff;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -97,12 +80,12 @@ nav {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card .text-container {
-  padding: 20px;
-}
-
 .card-container {
   padding: 8px 24px 24px 24px;
+}
+
+.card h2 {
+  height: 60px;
 }
 
 .card .button-container {
