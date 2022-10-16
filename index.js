@@ -138,6 +138,8 @@ const fetchProducts = async () => {
   const { products } = await response.json();
   // console.log(products);
   createProductCarts(products);
+
+  createSearch(products);
 };
 
 fetchProducts();
@@ -186,4 +188,24 @@ function removeFromCart(e) {
   let cart = JSON.parse(localStorage.getItem("cart"));
   cart = cart.filter((cartItem) => cartItem.id !== idProductToRemove);
   localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function createSearch(products) {
+  const urlArray = window.location.href.split(/[/.]/);
+  const page = urlArray[urlArray.length - 2];
+
+  const searchInput = document.querySelector("input");
+  if (page === "index") {
+    searchInput.addEventListener("keyup", () => {
+      console.log("products", products);
+      const filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(searchInput.value.toLowerCase())
+      );
+      main.innerText = "";
+      if (filteredProducts.length === 0) {
+        main.innerText = "no products were found";
+      }
+      createProductCarts(filteredProducts);
+    });
+  }
 }
