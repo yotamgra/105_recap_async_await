@@ -138,8 +138,11 @@ const fetchProducts = async () => {
   const { products } = await response.json();
   // console.log(products);
   createProductCarts(products);
-
+  console.log(products[0]);
   createSearch(products);
+
+  getOptions(products);
+  createEventListenerToSelectsChange(products);
 };
 
 fetchProducts();
@@ -208,4 +211,58 @@ function createSearch(products) {
       createProductCarts(filteredProducts);
     });
   }
+}
+
+function getOptions(products) {
+  const urlArray = window.location.href.split(/[/.]/);
+  const page = urlArray[urlArray.length - 2];
+
+  if (page === "index") {
+    const categoryOptionsEl = document.getElementById("category");
+    let categoryOptions = [];
+
+    //SELECT ALL OPTION
+    const selectAllOption = document.createElement("option");
+    selectAllOption.setAttribute("value", "all");
+    selectAllOption.innerText = "select all";
+
+    categoryOptionsEl.appendChild(selectAllOption);
+
+    products.forEach((product) => {
+      if (!categoryOptions.includes(product.category)) {
+        categoryOptions.push(product.category.toLowerCase());
+      }
+    });
+
+    categoryOptions.forEach((option) => {
+      const optionNode = document.createElement("option");
+      optionNode.setAttribute("value", option);
+      const optionText = document.createTextNode(
+        option.charAt(0).toUpperCase() + option.slice(1)
+      );
+      optionNode.appendChild(optionText);
+      categoryOptionsEl.appendChild(optionNode);
+    });
+  }
+}
+
+function createEventListenerToSelectsChange(products) {
+  const selects = document.querySelectorAll("select");
+  let filteredProducts = [...products];
+  selects.forEach((select) => {
+    select.addEventListener("change", (e) => {
+      if (e.target.value === "lower to higher") {
+        filteredProducts.sort((a, b) => a.price - b.price);
+      }
+      if (e.target.value === "higher to lower"){
+        filteredProducts.sort((a, b) => b.price - a.price);
+      }
+      if (e.target.id === "category"){
+        filteredProducts=filteredProducts.filter(product => product.category.toLowerCase()===e.target.value.toLowerCase())
+      }
+
+      main.innerHTML = "";
+      createProductCarts(filteredProducts);
+    });
+  });
 }
