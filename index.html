@@ -14,10 +14,24 @@
   <body>
     <nav>
       <div class="search">
-        <input />
-        <button id="search-button">Search</button>
+        <input placeholder="Search..." />
+        <!-- <button id="search-button">Search</button> -->
       </div>
-      <button><i class="fa-solid fa-cart-shopping"></i></button>
+      <form>
+        <label for="category">
+          Category
+          <select name="category" id="category"></select>
+        </label>
+        <label for="price">
+          Price
+          <select name="price" id="price">
+            <option value="select all">select all</option>
+            <option value="lower to higher">lower to higher</option>
+            <option value="higher to lower">higher to lower</option>
+          </select>
+        </label>
+      </form>
+      <button><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></button>
     </nav>
     <div id="main"></div>
     <footer>
